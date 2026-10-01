@@ -1,0 +1,792 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OP-PAY Express</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#330057',
+              'primary-container': '#4a1e6d',
+              secondary: '#7e5700',
+              'secondary-fixed': '#ffdead',
+              'on-secondary-fixed': '#281900',
+              background: '#fff7fd',
+              surface: '#fff7fd',
+              'surface-container': '#f9e8ff',
+              'surface-container-low': '#fdefff',
+              'surface-container-lowest': '#ffffff',
+              'surface-container-highest': '#f3daff',
+              'on-surface': '#28103a',
+              'on-surface-variant': '#4c444f',
+              outline: '#7d7480',
+              'outline-variant': '#cec3d1'
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="device-shell">
+        <section id="login-screen" class="screen active">
+          <div class="auth-screen-inner">
+            <header class="auth-topbar">
+              <div class="status-pill">
+                <span class="material-symbols-outlined text-[16px]">lock</span>
+                End-to-End Encrypted
+              </div>
+              <button class="lang-switch" type="button">
+                <span class="material-symbols-outlined text-[18px]">language</span>
+                EN
+              </button>
+            </header>
+
+            <div class="brand-wrap">
+              <div class="logo-badge">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUdgoA6LIB8kMTIdlJBTPhjKoW7hfBXzshDQt3IQjk75seh6OBz9Dep5qcHukv3QRpzP_yM97Txq6bns7MhzhwVOboA4SJ-9Zl5Kh6aok6EVDP-ROyEkKperbnOomkl4Wz7-sp8ad8qrO3V5UFPEJndGqnCznC6NuCf-ojNcjwdAEwHNMLA6-XdjDFuk7T4HMvPf7lrnlP9EgjT4Yt2e5s_GDy6D4BHbdfrKebJr_sQ8AT9r5G23cQKDih4rDKrgXhGw" alt="OP-PAY logo" />
+              </div>
+              <h1>OP-PAY Express</h1>
+              <p>Your smart, secure everyday e-wallet</p>
+            </div>
+
+            <div class="auth-toggle" aria-label="Authentication mode">
+              <button id="tab-login" class="auth-tab active" type="button">Log In</button>
+              <button id="tab-signup" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <section class="auth-panel">
+              <form id="auth-form" novalidate>
+                <div id="field-fullname" class="field hidden">
+                  <label for="input-fullname">Full Legal Name</label>
+                  <div class="input-wrap">
+                    <span class="material-symbols-outlined">badge</span>
+                    <input id="input-fullname" type="text" placeholder="e.g. Eleanor Vance" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label id="label-identifier" for="input-identifier">Mobile Number or Email</label>
+                  <div class="input-wrap">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <input id="input-identifier" type="text" placeholder="+63 917 000 8392" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="field-head">
+                    <label for="input-password">Security Password</label>
+                    <button id="link-forgot" type="button">Forgot?</button>
+                  </div>
+                  <div class="input-wrap">
+                    <span class="material-symbols-outlined">key</span>
+                    <input id="input-password" type="password" placeholder="••••••••••••" />
+                    <button id="btn-toggle-password" class="pw-toggle" type="button" aria-label="Toggle password visibility">
+                      <span class="material-symbols-outlined" id="eye-icon">visibility</span>
+                    </button>
+                  </div>
+                </div>
+
+                <button class="primary-btn" type="submit">
+                  <span id="btn-submit-text">Continue to Secure PIN</span>
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </form>
+
+              <div class="divider"><span>or instant sign in</span></div>
+
+              <div class="quick-auth">
+                <button type="button">
+                  <span class="material-symbols-outlined">fingerprint</span>
+                  Touch ID
+                </button>
+                <button type="button">
+                  <span class="material-symbols-outlined">shield_person</span>
+                  Face Pass
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <footer class="auth-footer">
+            <div class="support-row">
+              <span>Trouble logging in?</span>
+              <a href="#help">
+                Get Help
+                <span class="material-symbols-outlined text-[14px]">contact_support</span>
+              </a>
+            </div>
+            <p>
+              By continuing, you agree to OP-Pay Express
+              <a href="#terms">Terms of Service</a> &amp;
+              <a href="#privacy">Privacy Policy</a>.
+            </p>
+          </footer>
+        </section>
+
+        <section id="pin-screen" class="screen">
+          <div class="pin-app-shell">
+            <nav class="pin-topbar" aria-label="Authentication controls">
+              <button aria-label="Go back" class="circle-btn" type="button" id="pin-back-btn">
+                <span class="material-symbols-outlined">arrow_back</span>
+              </button>
+
+              <div class="status-pill compact">
+                <span class="material-symbols-outlined">lock</span>
+                <span>256-Bit SSL Encrypted</span>
+              </div>
+
+              <button aria-label="Customer support" class="circle-btn" type="button">
+                <span class="material-symbols-outlined">help_outline</span>
+              </button>
+            </nav>
+
+            <section class="pin-hero">
+              <div class="pin-logo-wrap">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCBMY3wzzYBS4kjXkRjdD9fVUkYYGERtZ78BY2U_VPtU_jkwTqn28we04jKZhh8U2MXtogg17dmLa9uesnWrJUgAug1kwZDIUfxmGTzLEYdLayHR5mRf0Mo59SEaOcdiSPNIuAMfGgY5u93PAwZotaAa372smAlQGj-1PzU8GHXWK3lzrJe6WwDddRRihzgeTZURlKlqzee22ATTXPJdnfEF3GVkB9AuyHhlVLjND6vlV7S3BWR4kSDMtLniai_0tT6g" alt="OP Emblem Logo" />
+              </div>
+
+              <h1>Welcome back, Bernadeth</h1>
+              <p>Enter your 6-digit security PIN to unlock your wallet</p>
+
+              <div aria-label="PIN entry status" class="pin-display" id="pin-display" role="status">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+              </div>
+
+              <div class="status-message" id="status-message">Verifying security credential...</div>
+            </section>
+
+            <section class="pin-keypad" aria-label="PIN numeric keypad">
+              <button class="num-key" data-value="1" type="button">
+                <span class="num-digit">1</span>
+                <span class="num-label">&nbsp;</span>
+              </button>
+              <button class="num-key" data-value="2" type="button">
+                <span class="num-digit">2</span>
+                <span class="num-label">ABC</span>
+              </button>
+              <button class="num-key" data-value="3" type="button">
+                <span class="num-digit">3</span>
+                <span class="num-label">DEF</span>
+              </button>
+              <button class="num-key" data-value="4" type="button">
+                <span class="num-digit">4</span>
+                <span class="num-label">GHI</span>
+              </button>
+              <button class="num-key" data-value="5" type="button">
+                <span class="num-digit">5</span>
+                <span class="num-label">JKL</span>
+              </button>
+              <button class="num-key" data-value="6" type="button">
+                <span class="num-digit">6</span>
+                <span class="num-label">MNO</span>
+              </button>
+              <button class="num-key" data-value="7" type="button">
+                <span class="num-digit">7</span>
+                <span class="num-label">PQRS</span>
+              </button>
+              <button class="num-key" data-value="8" type="button">
+                <span class="num-digit">8</span>
+                <span class="num-label">TUV</span>
+              </button>
+              <button class="num-key" data-value="9" type="button">
+                <span class="num-digit">9</span>
+                <span class="num-label">WXYZ</span>
+              </button>
+
+              <button class="biometric-btn" id="biometric-btn" type="button" aria-label="Unlock with fingerprint or Face ID">
+                <span class="material-symbols-outlined">fingerprint</span>
+                <span>Touch ID</span>
+              </button>
+
+              <button class="num-key" data-value="0" type="button">
+                <span class="num-digit">0</span>
+                <span class="num-label">+</span>
+              </button>
+
+              <button class="delete-btn" id="delete-btn" type="button" aria-label="Backspace">
+                <span class="material-symbols-outlined">backspace</span>
+              </button>
+            </section>
+
+            <footer class="pin-footer">
+              <button class="pin-link" type="button">
+                <span>Forgot your PIN? Reset with OTP</span>
+                <span class="material-symbols-outlined">arrow_forward_ios</span>
+              </button>
+
+              <div class="pin-account-switch">
+                <span>Not Bernadeth?</span>
+                <button type="button">Switch Account</button>
+              </div>
+            </footer>
+          </div>
+        </section>
+
+        <section id="dashboard-screen" class="screen">
+          <div class="max-w-lg mx-auto min-h-screen flex flex-col bg-background relative shadow-2xl pb-28">
+            <header class="bg-surface shadow-sm sticky top-0 z-40">
+              <div class="flex justify-between items-center w-full px-4 h-16 max-w-lg mx-auto">
+                <div class="flex items-center gap-3">
+                  <div class="relative p-0.5 rounded-full bg-gradient-to-tr from-secondary-fixed-dim via-secondary-container to-secondary shadow-sm">
+                    <div class="w-10 h-10 rounded-full border-2 border-surface-container-lowest overflow-hidden bg-primary-container flex items-center justify-center">
+                      <img class="w-full h-full object-cover" data-alt="A portrait of a cheerful young Southeast Asian businesswoman named Bernadeth wearing elegant smart-casual attire. Soft studio lighting highlights her face with a gentle warm glow. In the subtle blurred background, a modern luxury interior reflects refined violet and warm champagne golden tones matching fintech luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7pRizYCVBDAj5axbGov0HpHvSVUis6_lkkpmvtXBf-iCx5TEqHpTnATUjCQxqKlN6Seb5ksao5VErPLkCULiFXmDSwy8M4kSecPZi9QloSz8s1fHueCMfpwbzJI63iSv7-4rf_Cc58cTFWDpB06rdGyt0LYR0--P9K8JvdKpvnMm26ix3H3dTrwMJ5w9qKnjioye7e2SRyeN3Vm99Wc-9y1zl9TVD51FwVdejTXMWqUne62dAF0Ae" alt="Bernadeth profile portrait" />
+                    </div>
+                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary-container border-2 border-surface-container-lowest rounded-full"></span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Welcome back</span>
+                    <span class="font-title-md text-title-md text-primary font-bold tracking-tight">Hello, Bernadeth! 👋</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button aria-label="Notifications" class="w-9 h-9 rounded-full bg-surface-container-low flex items-center justify-center text-primary hover:bg-surface-variant active:scale-95 transition-transform duration-150 relative" type="button">
+                    <span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+                    <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+                  </button>
+                  <button aria-label="Settings" class="w-9 h-9 rounded-full bg-surface-container-low flex items-center justify-center text-primary hover:bg-surface-variant active:scale-95 transition-transform duration-150" type="button">
+                    <span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+                  </button>
+                </div>
+              </div>
+            </header>
+
+            <main class="flex-1 px-4 pt-4 space-y-5">
+              <section class="relative overflow-hidden rounded-[22px] border-[2px] border-white/30 bg-gradient-to-br from-[#420d69] via-[#3b0b5b] to-[#2d0a49] p-4 text-on-primary shadow-[0_20px_40px_rgba(50,0,87,0.35)]">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,222,173,0.18), transparent_32%),radial-gradient(circle_at_bottom_left,_rgba(255,255,255,0.08), transparent_28%)]"></div>
+
+                <div class="relative z-10 flex items-center justify-between gap-3 mb-3">
+                  <div class="flex items-center gap-2 text-[#f3d7ff] text-[12px] font-semibold tracking-[0.08em] uppercase">
+                    <span class="font-sans">OP-WALLET BALANCE</span>
+                    <button aria-label="Toggle Balance Visibility" class="flex items-center justify-center text-[#f3d7ff] hover:text-white transition-colors active:scale-90" id="toggleBalanceBtn" type="button">
+                      <span class="material-symbols-outlined text-[18px]" data-icon="visibility" id="eyeIcon">visibility</span>
+                    </button>
+                  </div>
+
+                  <div class="inline-flex items-center gap-2 rounded-full bg-[#f5eacc] px-2.5 py-1.5 shadow-sm border border-[#f9d989]/70">
+                    <div class="flex h-5 w-5 items-center justify-center rounded-full bg-[#ffdead] text-[9px] font-black text-[#330057]">OP</div>
+                    <span class="text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#330057]">Express Pay</span>
+                  </div>
+                </div>
+
+                <div class="relative z-10 flex items-center justify-between gap-3">
+                  <div class="flex items-end gap-1 text-[14px] font-black text-[#ffdead]">
+                    <span class="text-[22px] leading-none">₱</span>
+                    <span class="text-[28px] leading-none tracking-[-0.04em]" id="balanceText">24,850.50</span>
+                  </div>
+                </div>
+
+                <div class="relative z-10 mt-4 flex items-center justify-between gap-3 text-[#f4d9ff] text-[13px]">
+                  <div class="flex items-center gap-2">
+                    <span>Acc. No:</span>
+                    <span class="font-mono tracking-[0.18em] text-white">•••• 8842</span>
+                    <button class="flex h-5 w-5 items-center justify-center rounded-full border border-white/20 text-[#f4d9ff] hover:text-white transition-colors" title="Copy Account Number" type="button">
+                      <span class="material-symbols-outlined text-[14px]" data-icon="content_copy">content_copy</span>
+                    </button>
+                  </div>
+
+                  <div class="inline-flex items-center gap-1.5 rounded-full border border-[#ffdead]/30 bg-[#ffffff]/5 px-2 py-0.5">
+                    <span class="h-2 w-2 rounded-full bg-[#8fe8b4] shadow-[0_0_0_2px_rgba(143,232,180,0.2)]"></span>
+                    <span class="text-[11px] font-semibold text-[#f9f2ff]">Verified Tier 1</span>
+                  </div>
+                </div>
+
+                <div class="relative z-10 mt-5 grid grid-cols-2 gap-3">
+                  <button id="dashboard-cashin-btn" class="flex items-center justify-center gap-2 rounded-full bg-[#ffdead] py-3 text-[#330057] shadow-[0_8px_14px_rgba(255,222,173,0.25)] transition-all duration-150 active:scale-95 hover:brightness-95" type="button" data-show-screen="cashin-screen">
+                    <span class="material-symbols-outlined text-[20px] font-bold" data-icon="add_circle" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">add_circle</span>
+                    <span class="text-[15px] font-bold">Cash In</span>
+                  </button>
+
+                  <button class="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 py-3 text-white backdrop-blur-sm transition-all duration-150 active:scale-95 hover:bg-white/10" type="button">
+                    <span class="material-symbols-outlined text-[20px]" data-icon="arrow_right_alt">arrow_right_alt</span>
+                    <span class="text-[15px] font-bold">Transfer</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="bg-surface-container-lowest rounded-lg p-4 shadow-sm border border-outline-variant/30">
+                <div class="flex items-center justify-between mb-3 px-1">
+                  <h2 class="font-title-md text-title-md text-primary font-bold">Quick Actions</h2>
+                  <span class="font-label-sm text-label-sm text-secondary font-bold tracking-wide uppercase">Fast &amp; Secure</span>
+                </div>
+                <div class="grid grid-cols-4 gap-2 text-center" id="quickActionsGrid">
+                  <button class="quick-action-btn group flex flex-col items-center gap-2 active:scale-95 transition-all duration-200" data-action="deposit" data-show-screen="cashin-screen" type="button">
+                    <div class="action-icon-circle w-13 h-13 p-3.5 rounded-full bg-primary-container text-secondary-fixed group-hover:bg-primary transition-all duration-200 shadow-sm flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="account_balance">account_balance</span>
+                    </div>
+                    <span class="action-label font-label-md text-label-md text-on-surface font-semibold transition-colors duration-200">Deposit</span>
+                  </button>
+
+                  <button class="quick-action-btn group flex flex-col items-center gap-2 active:scale-95 transition-all duration-200" data-action="transfer" type="button">
+                    <div class="action-icon-circle w-13 h-13 p-3.5 rounded-full bg-primary-container text-secondary-fixed group-hover:bg-primary transition-all duration-200 shadow-sm flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="send_money">send_money</span>
+                    </div>
+                    <span class="action-label font-label-md text-label-md text-on-surface font-semibold transition-colors duration-200">Transfer</span>
+                  </button>
+
+                  <button class="quick-action-btn group flex flex-col items-center gap-2 active:scale-95 transition-all duration-200" data-action="scan_qr" type="button">
+                    <div class="action-icon-circle w-13 h-13 p-3.5 rounded-full bg-[#F5B041] text-[#330057] shadow-md ring-2 ring-secondary-fixed flex items-center justify-center transition-all duration-200">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="qr_code_scanner" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">qr_code_scanner</span>
+                    </div>
+                    <span class="action-label font-label-md text-label-md text-on-surface font-bold transition-colors duration-200">Scan QR</span>
+                  </button>
+
+                  <button class="quick-action-btn group flex flex-col items-center gap-2 active:scale-95 transition-all duration-200" data-action="loans" type="button">
+                    <div class="action-icon-circle w-13 h-13 p-3.5 rounded-full bg-primary-container text-secondary-fixed group-hover:bg-primary transition-all duration-200 shadow-sm flex items-center justify-center">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="real_estate_agent">real_estate_agent</span>
+                    </div>
+                    <span class="action-label font-label-md text-label-md text-on-surface font-semibold transition-colors duration-200">Loans</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="relative overflow-hidden rounded-lg bg-gradient-to-r from-secondary-fixed via-secondary-container to-secondary-fixed-dim p-4 text-on-secondary-fixed shadow-md border border-secondary-fixed">
+                <div class="flex items-center gap-3.5 relative z-10">
+                  <div class="w-11 h-11 rounded-full bg-surface-container-lowest/80 text-secondary flex-shrink-0 flex items-center justify-center shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]" data-icon="electric_bolt" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">electric_bolt</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center gap-1.5">
+                      <span class="bg-primary text-secondary-fixed text-[10px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider">Special Promo</span>
+                      <span class="text-xs font-bold text-on-secondary-container">Limited Time</span>
+                    </div>
+                    <p class="font-label-lg text-label-lg font-bold text-on-secondary-fixed leading-tight mt-0.5">
+                      Get 5% Cashback on Electric &amp; Water bills this week!
+                    </p>
+                  </div>
+                  <button class="w-8 h-8 rounded-full bg-on-secondary-fixed/10 hover:bg-on-secondary-fixed/20 flex items-center justify-center text-on-secondary-fixed transition-colors" type="button">
+                    <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="space-y-3">
+                <div class="flex items-center justify-between px-1">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-[20px]" data-icon="dashboard_customize">dashboard_customize</span>
+                    <h2 class="font-title-md text-title-md text-primary font-bold">Services &amp; Utilities</h2>
+                  </div>
+                  <a class="font-label-md text-label-md text-secondary font-bold hover:underline" href="#">View All</a>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-surface-container-lowest rounded-lg p-3.5 shadow-sm border border-outline-variant/30 flex items-center gap-3 active:scale-95 transition-transform cursor-pointer hover:border-secondary-fixed">
+                    <div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="stay_current_portrait">stay_current_portrait</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-title-md text-title-md font-bold text-primary">Buy Load</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">All Networks &amp; Roam</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-surface-container-lowest rounded-lg p-3.5 shadow-sm border border-outline-variant/30 flex items-center gap-3 active:scale-95 transition-transform cursor-pointer hover:border-secondary-fixed">
+                    <div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="receipt_long">receipt_long</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-title-md text-title-md font-bold text-primary">Pay Bills</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Power, Water &amp; Net</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-surface-container-lowest rounded-lg p-3.5 shadow-sm border border-outline-variant/30 flex items-center gap-3 active:scale-95 transition-transform cursor-pointer hover:border-secondary-fixed relative overflow-hidden">
+                    <div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="savings">savings</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-title-md text-title-md font-bold text-primary">Savings</span>
+                        <span class="bg-secondary-container/30 text-secondary text-[10px] font-extrabold px-1.5 rounded-full">4.5% p.a.</span>
+                      </div>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Earn High Interest</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-surface-container-lowest rounded-lg p-3.5 shadow-sm border border-outline-variant/30 flex items-center gap-3 active:scale-95 transition-transform cursor-pointer hover:border-secondary-fixed">
+                    <div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+                      <span class="material-symbols-outlined text-[24px]" data-icon="apps">apps</span>
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="font-title-md text-title-md font-bold text-primary">More</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Insurance, Travel &amp; Cards</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="bg-surface-container-lowest rounded-lg p-4 shadow-sm border border-outline-variant/30 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-title-md text-title-md text-primary font-bold">Recent Transactions</h2>
+                  <button class="font-label-md text-label-md text-secondary font-bold hover:underline" type="button">View History</button>
+                </div>
+                <div class="divide-y divide-outline-variant/20">
+                  <div class="py-2.5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="fastfood">fastfood</span>
+                      </div>
+                      <div>
+                        <p class="font-label-lg text-label-lg font-bold text-on-surface">GrabFood Merchant</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Today, 1:15 PM • QR Pay</p>
+                      </div>
+                    </div>
+                    <span class="font-title-md text-title-md font-bold text-on-surface">-₱320.00</span>
+                  </div>
+
+                  <div class="py-2.5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-full bg-secondary-fixed/40 flex items-center justify-center text-secondary">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="south_west">south_west</span>
+                      </div>
+                      <div>
+                        <p class="font-label-lg text-label-lg font-bold text-on-surface">Cash In (UnionBank)</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Yesterday, 4:40 PM • InstaPay</p>
+                      </div>
+                    </div>
+                    <span class="font-title-md text-title-md font-bold text-secondary">+₱5,000.00</span>
+                  </div>
+
+                  <div class="py-2.5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="bolt">bolt</span>
+                      </div>
+                      <div>
+                        <p class="font-label-lg text-label-lg font-bold text-on-surface">Meralco Utilities</p>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Oct 24 • Electric Bill</p>
+                      </div>
+                    </div>
+                    <span class="font-title-md text-title-md font-bold text-on-surface">-₱3,450.15</span>
+                  </div>
+                </div>
+              </section>
+
+              <div class="flex items-center justify-center gap-1.5 py-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-[16px] text-secondary" data-icon="lock">lock</span>
+                <span class="font-label-sm text-label-sm">Protected by 256-bit bank-grade encryption &amp; BSP regulated</span>
+              </div>
+            </main>
+
+            <nav class="sticky bottom-0 z-50 flex w-full items-center justify-around border-t border-outline-variant/30 bg-surface px-3 py-2 shadow-lg" id="bottomNav">
+              <button class="nav-item flex flex-col items-center justify-center rounded-full px-3 py-1.5 active:scale-95 transition-all duration-200 bg-primary-container text-secondary-fixed shadow-sm" data-tab="home" type="button">
+                <span class="material-symbols-outlined text-[22px] transition-transform duration-150" data-icon="home" data-weight="fill" style="font-variation-settings: &quot;FILL&quot; 1;">home</span>
+                <span class="font-label-sm text-label-sm font-semibold transition-colors duration-150">Home</span>
+              </button>
+
+              <button class="nav-item flex flex-col items-center justify-center rounded-full px-3 py-1.5 active:scale-95 transition-all duration-200 text-on-surface-variant hover:text-primary hover:bg-surface-container-low" data-tab="pay" type="button">
+                <span class="material-symbols-outlined text-[22px] transition-transform duration-150" data-icon="qr_code_scanner">qr_code_scanner</span>
+                <span class="font-label-sm text-label-sm font-medium transition-colors duration-150">Pay</span>
+              </button>
+
+              <button class="nav-item flex flex-col items-center justify-center rounded-full px-3 py-1.5 active:scale-95 transition-all duration-200 text-on-surface-variant hover:text-primary hover:bg-surface-container-low" data-tab="cards" type="button">
+                <span class="material-symbols-outlined text-[22px] transition-transform duration-150" data-icon="credit_card">credit_card</span>
+                <span class="font-label-sm text-label-sm font-medium transition-colors duration-150">Cards</span>
+              </button>
+
+              <button class="nav-item flex flex-col items-center justify-center rounded-full px-3 py-1.5 active:scale-95 transition-all duration-200 text-on-surface-variant hover:text-primary hover:bg-surface-container-low" data-tab="history" type="button">
+                <span class="material-symbols-outlined text-[22px] transition-transform duration-150" data-icon="receipt_long">receipt_long</span>
+                <span class="font-label-sm text-label-sm font-medium transition-colors duration-150">History</span>
+              </button>
+
+              <button class="nav-item flex flex-col items-center justify-center rounded-full px-3 py-1.5 active:scale-95 transition-all duration-200 text-on-surface-variant hover:text-primary hover:bg-surface-container-low" data-tab="settings" type="button">
+                <span class="material-symbols-outlined text-[22px] transition-transform duration-150" data-icon="person">person</span>
+                <span class="font-label-sm text-label-sm font-medium transition-colors duration-150">Settings</span>
+              </button>
+            </nav>
+          </div>
+        </section>
+
+        <section id="cashin-screen" class="screen">
+          <div class="cashin-shell relative w-full max-w-lg mx-auto bg-surface shadow-2xl">
+            <header class="sticky top-0 z-40 bg-surface/95 backdrop-blur-md px-4 py-2 flex items-center justify-between shadow-sm">
+              <button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container active:scale-95 transition-all duration-150" type="button" data-back="dashboard-screen">
+                <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+              </button>
+              <div class="flex flex-col items-center">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-secondary">OP-PAY Express</span>
+                <h1 class="text-[18px] font-bold text-primary tracking-tight">Cash In / Deposit</h1>
+              </div>
+              <button aria-label="Support & Help" class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container active:scale-95 transition-all duration-150" type="button">
+                <span class="material-symbols-outlined text-[24px]">help</span>
+              </button>
+            </header>
+
+            <main class="cashin-main flex-1 px-4 py-4 space-y-5">
+              <section class="cashin-wallet-card relative overflow-hidden rounded-[28px] p-5 text-white shadow-[0_20px_40px_rgba(50,0,87,0.28)]">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,222,173,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,_rgba(255,255,255,0.09),transparent_28%)]"></div>
+                <div class="relative z-10 flex items-start justify-between gap-3">
+                  <div class="flex items-center gap-2.5">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-[#f0d78d]/20 ring-1 ring-[#f4d7a4]/35">
+                      <span class="material-symbols-outlined text-[18px] text-[#f1dca5]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                    </div>
+                    <span class="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#f0d78d]">Default Wallet Destination</span>
+                  </div>
+
+                  <div class="inline-flex items-center gap-2 rounded-full border border-[#f3d9a5]/25 bg-[#d5b070]/22 px-3 py-1.5 shadow-[inset_0_1px_2px_rgba(255,255,255,0.08)]">
+                    <span class="h-2.5 w-2.5 rounded-full bg-[#f4d7a4] shadow-[0_0_0_3px_rgba(244,215,164,0.18)]"></span>
+                    <span class="text-[12px] font-bold text-[#f9edcc]">Verified Tier</span>
+                  </div>
+                </div>
+
+                <div class="relative z-10 mt-6 flex items-center gap-3">
+                  <span class="text-[22px] font-medium text-[#f7f0ff]">Account</span>
+                  <div class="inline-flex items-center gap-2 rounded-full bg-[#ffffff]/10 border border-white/10 px-3 py-2 shadow-inner">
+                    <span class="text-[18px] font-bold tracking-[0.28em] text-white">•••• 8842</span>
+                  </div>
+                </div>
+
+                <div class="relative z-10 mt-6 border-t border-white/15 pt-4 flex items-end justify-between gap-3">
+                  <div>
+                    <p class="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#f5dfe8] opacity-90">Current Available Balance</p>
+                    <p class="mt-3 text-[42px] md:text-[48px] font-extrabold tracking-[-0.06em] text-white leading-none">₱ 24,850.50</p>
+                  </div>
+                  <div class="inline-flex items-center gap-2 text-[14px] font-bold text-[#f6d691]">
+                    <span>Instant Credit</span>
+                    <span class="material-symbols-outlined text-[18px]">bolt</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="bg-surface-container-lowest rounded-lg p-5 shadow-[0_4px_20px_-2px_rgba(44,20,62,0.08)] border border-primary/5 space-y-4">
+                <div class="flex justify-between items-center">
+                  <label class="text-[14px] font-semibold text-primary flex items-center space-x-1.5" for="deposit-amount-input">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">payments</span>
+                    <span>Enter Deposit Amount</span>
+                  </label>
+                  <span class="text-[11px] font-medium text-outline">Max: ₱50,000 / day</span>
+                </div>
+
+                <div class="relative rounded-2xl bg-surface-container-low/60 border border-outline-variant/60 focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/20 transition-all p-4 flex items-center justify-between">
+                  <div class="flex items-baseline space-x-2 w-full">
+                    <span class="text-[24px] font-bold text-primary">₱</span>
+                    <input class="w-full bg-transparent border-0 p-0 text-[24px] font-bold text-primary placeholder:text-outline-variant focus:ring-0 focus:outline-none" id="deposit-amount-input" inputmode="decimal" placeholder="0.00" type="text" value="2,500.00" />
+                  </div>
+                  <button aria-label="Clear amount" class="p-1 rounded-full text-outline hover:text-primary hover:bg-surface-container active:scale-90 transition-all" type="button">
+                    <span class="material-symbols-outlined text-[20px]">cancel</span>
+                  </button>
+                </div>
+
+                <div>
+                  <p class="text-[11px] font-medium text-outline mb-2">Quick Select Amount</p>
+                  <div class="grid grid-cols-5 gap-1.5">
+                    <button class="group py-2 px-1 text-center rounded-xl bg-surface-container-low text-primary border border-outline-variant/40 hover:bg-secondary-fixed hover:border-secondary hover:text-primary active:scale-95 transition-all duration-200" type="button">
+                      <span class="text-[12px] font-semibold block">₱500</span>
+                    </button>
+                    <button class="group py-2 px-1 text-center rounded-xl bg-surface-container-low text-primary border border-outline-variant/40 hover:bg-secondary-fixed hover:border-secondary hover:text-primary active:scale-95 transition-all duration-200" type="button">
+                      <span class="text-[12px] font-semibold block">₱1,000</span>
+                    </button>
+                    <button class="group py-2 px-1 text-center rounded-xl bg-secondary-fixed text-primary font-bold border border-secondary shadow-sm active:scale-95 transition-all duration-200" type="button">
+                      <span class="text-[12px] font-semibold block">₱2,500</span>
+                    </button>
+                    <button class="group py-2 px-1 text-center rounded-xl bg-surface-container-low text-primary border border-outline-variant/40 hover:bg-secondary-fixed hover:border-secondary hover:text-primary active:scale-95 transition-all duration-200" type="button">
+                      <span class="text-[12px] font-semibold block">₱5,000</span>
+                    </button>
+                    <button class="group py-2 px-1 text-center rounded-xl bg-surface-container-low text-primary border border-outline-variant/40 hover:bg-secondary-fixed hover:border-secondary hover:text-primary active:scale-95 transition-all duration-200" type="button">
+                      <span class="text-[12px] font-semibold block">₱10,000</span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <h2 class="text-[16px] font-semibold text-primary tracking-tight">Select Cash In Method</h2>
+                  <span class="text-[11px] font-semibold text-secondary">6 Options Available</span>
+                </div>
+
+                <div class="flex space-x-2 p-1 bg-surface-container-low rounded-full border border-outline-variant/30">
+                  <button class="flex-1 py-2 text-center rounded-full bg-primary-container text-on-primary text-[12px] font-semibold shadow-sm transition-all duration-200" type="button">Linked Banks</button>
+                  <button class="flex-1 py-2 text-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container text-[12px] font-semibold transition-all duration-200" type="button">E-Wallets</button>
+                  <button class="flex-1 py-2 text-center rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container text-[12px] font-semibold transition-all duration-200" type="button">Over the Counter</button>
+                </div>
+
+                <div class="space-y-2.5">
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border-2 border-primary-container shadow-[0_4px_20px_-2px_rgba(44,20,62,0.1)] flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-secondary-container to-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-[26px]">account_balance</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">UnionBank</span>
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary text-[11px] font-semibold border border-primary/10">No Fee</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Direct Connect • Fast Deposit</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <span class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[14px]">check</span>
+                      </span>
+                      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]">chevron_right</span>
+                    </div>
+                  </div>
+
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/50 shadow-sm flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-error-container text-error flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[26px]">domain</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">BPI</span>
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary text-[11px] font-semibold border border-primary/10">No Fee</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Bank of the Philippine Islands</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 transition-all text-[20px]">chevron_right</span>
+                  </div>
+
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/50 shadow-sm flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-primary-container/10 text-primary-container flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[26px]">account_balance_wallet</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">GCash</span>
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary text-[11px] font-semibold border border-primary/10">No Fee</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Instant Link • 1-Tap Auth</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 transition-all text-[20px]">chevron_right</span>
+                  </div>
+
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/50 shadow-sm flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[26px]">contactless</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">Maya / PayMaya</span>
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary text-[11px] font-semibold border border-primary/10">No Fee</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Seamless Wallet App Direct</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 transition-all text-[20px]">chevron_right</span>
+                  </div>
+
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/50 shadow-sm flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-secondary-container/20 text-secondary flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[26px]">barcode_scanner</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">7-Eleven CLiQQ</span>
+                          <span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[11px] font-semibold">Barcode Pay</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Cash in via kiosk or cashier</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 transition-all text-[20px]">chevron_right</span>
+                  </div>
+
+                  <div class="group relative bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/50 shadow-sm flex items-center justify-between cursor-pointer transition-all duration-200 hover:bg-surface-container hover:border-primary hover:scale-[1.01]" role="button" tabindex="0">
+                    <div class="flex items-center space-x-3.5">
+                      <div class="w-12 h-12 rounded-xl bg-surface-variant text-primary flex items-center justify-center font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[26px]">storefront</span>
+                      </div>
+                      <div>
+                        <div class="flex items-center space-x-2">
+                          <span class="text-[16px] font-semibold text-primary">Cebuana / Palawan</span>
+                          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary text-[11px] font-semibold border border-primary/10">Over The Counter</span>
+                        </div>
+                        <p class="text-[14px] text-on-surface-variant">Nationwide Remittance Branches</p>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-outline group-hover:text-primary group-hover:translate-x-0.5 transition-all text-[20px]">chevron_right</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="pt-1 pb-2">
+                <button class="relative w-full h-[52px] rounded-full bg-primary-container text-on-primary font-bold text-[16px] tracking-wide shadow-[0_8px_30px_-4px_rgba(30,10,45,0.22)] overflow-hidden group active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2" type="button">
+                  <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-secondary-container/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out"></div>
+                  <span class="relative z-10 text-on-primary font-semibold">Continue to Cash In</span>
+                  <span class="relative z-10 material-symbols-outlined text-secondary-fixed text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+
+                <div class="flex items-center justify-center space-x-2 mt-3 text-outline text-[11px] font-medium">
+                  <span class="material-symbols-outlined text-[16px] text-secondary">lock</span>
+                  <span>256-Bit Financial Encryption &amp; BSP Regulated</span>
+                </div>
+              </section>
+            </main>
+
+            <nav aria-label="Bottom Navigation" class="cashin-bottom-nav rounded-t-[22px] bg-surface-container-lowest px-3 py-2 shadow-[0_-8px_32px_rgba(30,10,45,0.18)]">
+              <button type="button" class="nav-item flex flex-col items-center justify-center text-on-surface-variant px-2.5 py-1.5 hover:text-primary transition-all duration-200 active:scale-95">
+                <span class="material-symbols-outlined text-[24px]">home</span>
+                <span class="text-[11px] mt-0.5">Home</span>
+              </button>
+              <button type="button" class="nav-item flex flex-col items-center justify-center bg-primary-container text-on-primary rounded-full px-3.5 py-1.5 shadow-sm transition-all duration-200 active:scale-95">
+                <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+                <span class="text-[11px] mt-0.5 font-semibold">Pay</span>
+              </button>
+              <button type="button" class="nav-item flex flex-col items-center justify-center text-on-surface-variant px-2.5 py-1.5 hover:text-primary transition-all duration-200 active:scale-95">
+                <span class="material-symbols-outlined text-[24px]">credit_card</span>
+                <span class="text-[11px] mt-0.5">Cards</span>
+              </button>
+              <button type="button" class="nav-item flex flex-col items-center justify-center text-on-surface-variant px-2.5 py-1.5 hover:text-primary transition-all duration-200 active:scale-95">
+                <span class="material-symbols-outlined text-[24px]">receipt_long</span>
+                <span class="text-[11px] mt-0.5">History</span>
+              </button>
+              <button type="button" class="nav-item flex flex-col items-center justify-center text-on-surface-variant px-2.5 py-1.5 hover:text-primary transition-all duration-200 active:scale-95">
+                <span class="material-symbols-outlined text-[24px]">person</span>
+                <span class="text-[11px] mt-0.5">Settings</span>
+              </button>
+            </nav>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      document.querySelectorAll('[data-back="dashboard-screen"]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          showScreen('dashboard-screen');
+        });
+      });
+
+      document.querySelectorAll('#dashboard-screen .bg-secondary-container').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          showScreen('cashin-screen');
+        });
+      });
+
+      const dashboardCashBtn = document.querySelector('#dashboard-screen button:last-child');
+      if (dashboardCashBtn) {
+        dashboardCashBtn.addEventListener('click', () => {
+          showScreen('cashin-screen');
+        });
+      }
+    </script>
+  </body>
+</html>
